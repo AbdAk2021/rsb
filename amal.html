@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>إنشاء معايدة باسم الشخص</title>
+</head>
+<body>
+  <h1>إنشاء معايدة باسم الشخص</h1>
+  <p>اضغط على الرابط لإنشاء معايدة باسمك:</p>
+  <a id="greetingLink" href="#">انقر هنا</a>
+
+  <script>
+    // دالة تقوم بإنشاء معايدة باسم الشخص
+    function createGreeting(name) {
+      // يمكنك تخصيص رسالة المعايدة حسب احتياجاتك
+      var greeting = "مرحبًا " + name + "! أتمنى لك يومًا سعيدًا.";
+      alert(greeting);
+    }
+
+    // يتم تنفيذ هذا الجزء عند الضغط على الرابط
+    document.getElementById("greetingLink").addEventListener("click", function(event) {
+      event.preventDefault(); // يمنع سلوك الرابط الافتراضي
+
+      var name = prompt("ما هو اسمك؟");
+      if (name) {
+        createGreeting(name);
+      }
+    });
+  </script>
+</body>
+</html>
