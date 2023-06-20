@@ -1,29 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>إنشاء معايدة باسم الشخص</title>
+  <title>صفحة إضافة الاسم والصورة</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    input[type="text"],
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    
+    #result {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-  <h1>إنشاء معايدة باسم الشخص</h1>
-  <p>اضغط على الرابط لإنشاء معايدة باسمك:</p>
-  <a id="greetingLink" href="#">انقر هنا</a>
-
+  <h1>إضافة الاسم والصورة</h1>
+  
+  <form id="profileForm">
+    <label for="name">الاسم:</label>
+    <input type="text" id="name" name="name" required>
+    
+    <label for="image">الصورة:</label>
+    <input type="file" id="image" name="image" accept="image/*" required>
+    
+    <input type="submit" value="إرسال">
+  </form>
+  
+  <div id="result"></div>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    // دالة تقوم بإنشاء معايدة باسم الشخص
-    function createGreeting(name) {
-      // يمكنك تخصيص رسالة المعايدة حسب احتياجاتك
-      var greeting = "مرحبًا " + name + "! أتمنى لك يومًا سعيدًا.";
-      alert(greeting);
-    }
-
-    // يتم تنفيذ هذا الجزء عند الضغط على الرابط
-    document.getElementById("greetingLink").addEventListener("click", function(event) {
-      event.preventDefault(); // يمنع سلوك الرابط الافتراضي
-
-      var name = prompt("ما هو اسمك؟");
-      if (name) {
-        createGreeting(name);
-      }
+    $(document).ready(function() {
+      $('#profileForm').submit(function(event) {
+        event.preventDefault(); // منع تحميل الصفحة بعد الإرسال
+        
+        var formData = new FormData(this);
+        $.ajax({
+          url: 'process.php', // استبدل بملف يقوم بمعالجة البيانات
+          type: 'POST',
+          data: formData,
+          success: function(response) {
+            $('#result').html(response); // عرض الاستجابة في عنصر div
+          },
+          cache: false,
+          contentType: false,
+          processData: false
+        });
+      });
     });
   </script>
 </body>
