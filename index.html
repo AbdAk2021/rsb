@@ -55,9 +55,12 @@
     }
     
     .uploaded-image {
-      max-width: 300px;
-      max-height: 300px;
+      width: 300px;
+      height: 300px;
       margin: 10px auto;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
       display: none;
     }
     
@@ -121,7 +124,7 @@
     <button id="createButton" class="button" onclick="openModal()">انشاء معايدتك</button>
   </div>
   
-  <img id="uploaded-image" class="uploaded-image" alt="صورة المستخدم">
+  <div id="uploaded-image" class="uploaded-image"></div>
 
   <div id="name-modal" class="modal">
     <div class="modal-content">
@@ -158,24 +161,24 @@
       const greetingElement = document.getElementById('greeting');
       if (greetingElement) {
         greetingElement.textContent = name;
+        const uploadedImage = document.getElementById('uploaded-image');
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedImage.style.backgroundImage = `url(${e.target.result})`;
+        };
+        reader.readAsDataURL(imageInput.files[0]);
+        uploadedImage.style.display = 'block';
       } else {
         const createButton = document.getElementById('createButton');
         createButton.insertAdjacentHTML('beforebegin', `<p id="greeting" class="greeting">${name}</p>`);
-      }
-      const imageFile = imageInput.files[0];
-      const reader = new FileReader();
-      reader.onload = function(event) {
         const uploadedImage = document.getElementById('uploaded-image');
-        uploadedImage.src = event.target.result;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedImage.style.backgroundImage = `url(${e.target.result})`;
+        };
+        reader.readAsDataURL(imageInput.files[0]);
         uploadedImage.style.display = 'block';
-
-        // تحقق من قراءة الملف بنجاح ثم قم بالتوجيه
-        if (reader.result) {
-          const redirectURL = `adha.php?name=${encodeURIComponent(name)}&image=${encodeURIComponent(reader.result)}`;
-          window.location.href = redirectURL;
-        }
-      };
-      reader.readAsDataURL(imageFile);
+      }
     }
   </script>
 </body>
