@@ -129,6 +129,8 @@
       <form onsubmit="saveName(event)">
         <input type="text" id="nameInput" class="input-field" placeholder="الاسم" required maxlength="15">
         <br>
+        <input type="file" id="imageInput" accept="image/*" class="input-field" required>
+        <br>
         <button class="button" type="submit">حفظ</button>
       </form>
     </div>
@@ -148,8 +150,9 @@
     function saveName(event) {
       event.preventDefault();
       const nameInput = document.getElementById('nameInput');
+      const imageInput = document.getElementById('imageInput');
       let name = nameInput.value;
-      name = name.substring(0, 15); // يحدد النص بحد أقصى 15 حرفًا
+      name = name.substring(0, 15);
       nameInput.value = name;
       closeModal();
       const greetingElement = document.getElementById('greeting');
@@ -159,6 +162,20 @@
         const createButton = document.getElementById('createButton');
         createButton.insertAdjacentHTML('beforebegin', `<p id="greeting" class="greeting">${name}</p>`);
       }
+      const imageFile = imageInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const uploadedImage = document.getElementById('uploaded-image');
+        uploadedImage.src = event.target.result;
+        uploadedImage.style.display = 'block';
+
+        // تحقق من قراءة الملف بنجاح ثم قم بالتوجيه
+        if (reader.result) {
+          const redirectURL = `adha.php?name=${encodeURIComponent(name)}&image=${encodeURIComponent(reader.result)}`;
+          window.location.href = redirectURL;
+        }
+      };
+      reader.readAsDataURL(imageFile);
     }
   </script>
 </body>
