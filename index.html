@@ -1,239 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>صفحة إضافة الاسم والصورة</title>
+  <title>صورة تغطي صفحة الويب كاملة</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
+      height: 100%;
     }
     
-    #particles-js {
-      position: fixed;
+    .image-container {
       width: 100%;
       height: 100%;
-      background-color: #000;
-      background-size: cover;
-      background-position: 50% 50%;
-      background-repeat: no-repeat;
-      z-index: -1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     
-    h1 {
-      text-align: center;
-      position: relative;
-      z-index: 1;
-      color: #fff;
-      margin-top: 100px;
-    }
-    
-    form {
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      background-color: #fff;
-      position: relative;
-      z-index: 1;
-    }
-    
-    label {
-      display: block;
-      margin-bottom: 10px;
-    }
-    
-    input[type="text"],
-    input[type="file"] {
+    .image {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    
-    input[type="submit"] {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin-top: 10px;
-      cursor: pointer;
-    }
-    
-    #result {
-      text-align: center;
-      margin-top: 20px;
+      height: 100%;
+      object-fit: cover;
     }
   </style>
 </head>
 <body>
-  <div id="particles-js"></div>
-  
-  <h1>إضافة الاسم والصورة</h1>
-  
-  <form id="profileForm">
-    <label for="name">الاسم:</label>
-    <input type="text" id="name" name="name" required>
-    
-    <label for="image">الصورة:</label>
-    <input type="file" id="image" name="image" accept="image/*" required>
-    
-    <input type="submit" value="إرسال">
-  </form>
-  
-  <div id="result"></div>
-  
-  <audio id="audio" autoplay>
-    <source src="eid_takbeer.mp3" type="audio/mpeg">
-  </audio>
-  
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <script>
-    // تكوين جسيمات الخلفية
-    particlesJS("particles-js", {
-      "particles": {
-        "number": {
-          "value": 100,
-          "density": {
-            "enable": true,
-            "value_area": 800
-          }
-        },
-        "color": {
-          "value": "#ffffff"
-        },
-        "shape": {
-          "type": "image",
-          "stroke": {
-            "width": 0,
-            "color": "#000000"
-          },
-          "polygon": {
-            "nb_sides": 5
-          },
-          "image": {
-            "src": "https://layalina.awicdn.com/site-images/sites/default/files/prod/celebrity_profile/1/7/401256/4df658044e43a9c6934be4e2f5e28722026a630f-190421125921.PNG?preset=v3.0_570X570&save-png=1&rnd=1519151RND220215&croptop=1", // رابط صورة ملك الأردن
-            "width": 100,
-            "height": 100
-          }
-        },
-        "opacity": {
-          "value": 0.5,
-          "random": false,
-          "anim": {
-            "enable": false,
-            "speed": 1,
-            "opacity_min": 0.1,
-            "sync": false
-          }
-        },
-        "size": {
-          "value": 3,
-          "random": true,
-          "anim": {
-            "enable": false,
-            "speed": 40,
-            "size_min": 0.1,
-            "sync": false
-          }
-        },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#ffffff",
-          "opacity": 0.4,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 6,
-          "direction": "none",
-          "random": false,
-          "straight": false,
-          "out_mode": "out",
-          "bounce": false,
-          "attract": {
-            "enable": false,
-            "rotateX": 600,
-            "rotateY": 1200
-          }
-        }
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": {
-            "enable": true,
-            "mode": "repulse"
-          },
-          "onclick": {
-            "enable": true,
-            "mode": "push"
-          },
-          "resize": true
-        },
-        "modes": {
-          "grab": {
-            "distance": 400,
-            "line_linked": {
-              "opacity": 1
-            }
-          },
-          "bubble": {
-            "distance": 400,
-            "size": 40,
-            "duration": 2,
-            "opacity": 8,
-            "speed": 3
-          },
-          "repulse": {
-            "distance": 200,
-            "duration": 0.4
-          },
-          "push": {
-            "particles_nb": 4
-          },
-          "remove": {
-            "particles_nb": 2
-          }
-        }
-      },
-      "retina_detect": true
-    });
-    
-    // تشغيل صوت التكبيرات عند تحميل الصفحة
-    $(document).ready(function() {
-      var audioElement = document.getElementById("audio");
-      audioElement.play();
-    });
-    
-    // معالجة إرسال النموذج
-    $(document).ready(function() {
-      $('#profileForm').submit(function(event) {
-        event.preventDefault(); // منع تحميل الصفحة بعد الإرسال
-        
-        var formData = new FormData(this);
-        $.ajax({
-          url: 'process.php', // استبدل بملف يقوم بمعالجة البيانات
-          type: 'POST',
-          data: formData,
-          success: function(response) {
-            $('#result').html(response); // عرض الاستجابة في عنصر div
-          },
-          cache: false,
-          contentType: false,
-          processData: false
-        });
-      });
-    });
-  </script>
+  <div class="image-container">
+    <img class="image" src="https://media.tenor.com/6LyXLgF8ksUAAAAd/anime-gif.gif">
+  </div>
 </body>
 </html>
